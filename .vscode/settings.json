@@ -1,0 +1,5 @@
+{
+    "debugwrapper.wrappers": {
+        "default": "console.log('$eSEL', $SEL);"
+    }
+}

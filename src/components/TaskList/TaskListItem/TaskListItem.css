@@ -1,0 +1,29 @@
+.list-item_title {
+    width: 400px;
+}
+
+.button {
+    width: 32px;
+    height: 32px;
+    min-width: 0 !important;
+    padding: 0 !important;
+}
+
+.expired {
+    border: 1px solid brown;
+    background-color: red;
+}
+
+.upcoming {
+    border: 1px solid orange;
+    background-color: yellow;
+}
+
+.completed {
+    border: 1px solid transparent;
+    opacity: 0.5;
+}
+
+.common {
+    border: 1px solid transparent;
+}
