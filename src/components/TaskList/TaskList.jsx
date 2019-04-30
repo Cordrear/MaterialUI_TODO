@@ -168,7 +168,9 @@ class TaskList extends React.Component {
                                 onEdit={() => this.onEdit(item.id)}
                                 onMove={this.onMove}
                                 position={
-                                    index === 0
+                                    data.length === 1
+                                        ? "only"
+                                        : index === 0
                                         ? "first"
                                         : index === data.length - 1
                                         ? "last"

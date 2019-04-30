@@ -27,14 +27,14 @@ export default (props) => {
             <Button
                 className="button"
                 onClick={() => onMove(id, "down")}
-                disabled={position === "last"}
+                disabled={position === "last" || position === "only"}
             >
                 <DownIcon />
             </Button>
             <Button
                 className="button"
                 onClick={() => onMove(id, "up")}
-                disabled={position === "first"}
+                disabled={position === "first" || position === "only"}
             >
                 <UpIcon />
             </Button>
