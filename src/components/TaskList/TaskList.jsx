@@ -19,11 +19,13 @@ class TaskList extends React.Component {
         this.state = {
             data: [],
             isTaskDialogOpen: false,
+            isConfirmationOpen: false,
             titleInputValue: "",
             dateInputValue: moment().format("YYYY-MM-DD"),
             descriptionInputValue: "",
             dialogTitle: "",
             editableItemId: "",
+            itemToDelete: null,
         };
     }
 
@@ -95,16 +97,33 @@ class TaskList extends React.Component {
     };
 
     onDelete = (id) => {
-        // TODO: Confirmation
+        const item = this.state.data.find((task) => task.id === id);
+        this.setState({
+            isConfirmationOpen: true,
+            itemToDelete: this.deepClone(item),
+        });
+    };
+
+    onDeleteConfirm = () => {
         const newData = this.deepClone(this.state.data);
-        const indexToDelete = newData.findIndex((task) => task.id === id);
+        const indexToDelete = newData.findIndex(
+            (task) => task.id === this.state.itemToDelete.id
+        );
         newData.splice(indexToDelete, 1);
         this.setState(
             {
+                isConfirmationOpen: false,
                 data: newData,
             },
             this.updateLocalStorage
         );
+    };
+
+    onDeleteCancel = () => {
+        this.setState({
+            isConfirmationOpen: false,
+            itemToDelete: null,
+        });
     };
 
     updateLocalStorage = () => {
@@ -155,9 +174,11 @@ class TaskList extends React.Component {
         const {
             data,
             isTaskDialogOpen,
+            isConfirmationOpen,
             titleInputValue,
             descriptionInputValue,
             dateInputValue,
+            itemToDelete,
         } = this.state;
 
         return (
@@ -194,11 +215,7 @@ class TaskList extends React.Component {
                         ))}
                     </List>
                 </Paper>
-                <Dialog
-                    open={isTaskDialogOpen}
-                    onClose={this.closeDialog}
-                    className="dialog"
-                >
+                <Dialog open={isTaskDialogOpen} onClose={this.closeDialog}>
                     <DialogTitle className="task-dialog-header">
                         {this.state.editableItemId
                             ? "Редактирование"
@@ -241,6 +258,29 @@ class TaskList extends React.Component {
                         <Button color="primary" onClick={this.onSave}>
                             Сохранить
                         </Button>
+                    </DialogActions>
+                </Dialog>
+                <Dialog
+                    open={isConfirmationOpen}
+                    onClose={this.onDeleteCancel}
+                    onCancel={this.onDeleteCancel}
+                    onConfirm={this.onDeleteConfirm}
+                >
+                    <DialogTitle className="confirmation-header">
+                        Удалить задачу
+                    </DialogTitle>
+                    <DialogContent>
+                        <div>
+                            <p className="confirmation-text">
+                                Вы действительно хотите безвозвратно удалить эту
+                                задачу?
+                            </p>
+                            <p>{itemToDelete && itemToDelete.title}</p>
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.onDeleteCancel}>Нет</Button>
+                        <Button onClick={this.onDeleteConfirm}>Да</Button>
                     </DialogActions>
                 </Dialog>
             </>

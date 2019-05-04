@@ -23,6 +23,16 @@
     border-bottom: 1px solid lightgray;
 }
 
+.confirmation-header {
+    border-bottom: 1px solid lightgray;
+}
+
+.confirmation-text {
+    font-weight: bold;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
 .title-and-date {
     display: flex;
     justify-content: space-between;
