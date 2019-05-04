@@ -114,6 +114,7 @@ class TaskList extends React.Component {
             {
                 isConfirmationOpen: false,
                 data: newData,
+                itemToDelete: null,
             },
             this.updateLocalStorage
         );
