@@ -3,13 +3,14 @@ import "./TaskListItem.css";
 import { ListItem, Checkbox, ListItemText, Button } from "@material-ui/core";
 import {
     Edit as EditIcon,
+    DeleteForever as DeleteForeverIcon,
     KeyboardArrowDown as DownIcon,
     KeyboardArrowUp as UpIcon,
 } from "@material-ui/icons";
 import moment from "moment";
 
 export default (props) => {
-    const { position, onCheck, onEdit, onMove } = props;
+    const { position, onCheck, onEdit, onDelete, onMove } = props;
     const { id, title, date, checked } = props.data;
     const deadline = moment(date);
     const daysLeft = deadline.diff(moment(), "days");
@@ -40,6 +41,9 @@ export default (props) => {
             </Button>
             <Button className="button" onClick={onEdit}>
                 <EditIcon />
+            </Button>
+            <Button className="button" onClick={onDelete}>
+                <DeleteForeverIcon />
             </Button>
         </ListItem>
     );

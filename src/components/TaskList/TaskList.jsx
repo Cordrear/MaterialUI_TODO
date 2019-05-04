@@ -94,6 +94,19 @@ class TaskList extends React.Component {
         });
     };
 
+    onDelete = (id) => {
+        // TODO: Confirmation
+        const newData = this.deepClone(this.state.data);
+        const indexToDelete = newData.findIndex((task) => task.id === id);
+        newData.splice(indexToDelete, 1);
+        this.setState(
+            {
+                data: newData,
+            },
+            this.updateLocalStorage
+        );
+    };
+
     updateLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(this.state.data));
     };
@@ -166,6 +179,7 @@ class TaskList extends React.Component {
                                 key={item.id}
                                 onCheck={() => this.onCheck(item.id)}
                                 onEdit={() => this.onEdit(item.id)}
+                                onDelete={() => this.onDelete(item.id)}
                                 onMove={this.onMove}
                                 position={
                                     data.length === 1
