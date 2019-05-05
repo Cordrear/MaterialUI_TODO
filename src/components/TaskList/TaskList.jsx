@@ -105,17 +105,12 @@ class TaskList extends React.Component {
     };
 
     onDeleteConfirm = () => {
-        const newData = this.deepClone(this.state.data);
-        const indexToDelete = newData.findIndex(
-            (task) => task.id === this.state.itemToDelete.id
-        );
-        newData.splice(indexToDelete, 1);
         this.setState(
-            {
+            ({ data, itemToDelete }) => ({
                 isConfirmationOpen: false,
-                data: newData,
+                data: data.filter((task) => task.id !== itemToDelete.id),
                 itemToDelete: null,
-            },
+            }),
             this.updateLocalStorage
         );
     };
