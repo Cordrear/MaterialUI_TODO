@@ -1,4 +1,4 @@
-Task manager
+Material UI TO-DO list
 
 1. Download the project
 2. In the project folder execute "npm i" (nodeJS requred)
